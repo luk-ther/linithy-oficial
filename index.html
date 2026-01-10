@@ -1,0 +1,300 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Linithy • Discord</title>
+
+  <!-- Google Fonts -->
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;600;700;900&display=swap" rel="stylesheet">
+
+  <style>
+    :root {
+      --bg-dark: #0b0d12;
+      --bg-dark-2: #121521;
+      --text-dark: #e6e6eb;
+      --muted-dark: #9aa0b3;
+      --accent: #7c7cff;
+      --accent-2: #a48cff;
+
+      --bg-light: #f4f6fb;
+      --bg-light-2: #ffffff;
+      --text-light: #0f1220;
+      --muted-light: #5a607a;
+    }
+
+    * {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+    }
+
+    body {
+      font-family: 'Inter', sans-serif;
+      background: var(--bg-dark);
+      color: var(--text-dark);
+      transition: background 0.6s ease, color 0.6s ease;
+      overflow-x: hidden;
+    }
+
+    body.light {
+      background: var(--bg-light);
+      color: var(--text-light);
+    }
+
+    /* ANIMAÇÕES GERAIS */
+    @keyframes fadeUp {
+      from { opacity: 0; transform: translateY(30px); }
+      to { opacity: 1; transform: translateY(0); }
+    }
+
+    @keyframes float {
+      0% { transform: translateY(0); }
+      50% { transform: translateY(-6px); }
+      100% { transform: translateY(0); }
+    }
+
+    /* HEADER */
+    header {
+      position: fixed;
+      top: 0;
+      width: 100%;
+      backdrop-filter: blur(14px);
+      background: rgba(11, 13, 18, 0.75);
+      border-bottom: 1px solid rgba(255,255,255,0.05);
+      z-index: 100;
+    }
+
+    body.light header {
+      background: rgba(255,255,255,0.7);
+    }
+
+    .nav {
+      max-width: 1200px;
+      margin: auto;
+      padding: 18px 24px;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+    }
+
+    .logo {
+      font-weight: 900;
+      font-size: 1.3rem;
+      letter-spacing: 1px;
+      color: var(--accent);
+      animation: float 6s ease-in-out infinite;
+    }
+
+    .nav-links a {
+      margin-left: 24px;
+      text-decoration: none;
+      color: inherit;
+      font-weight: 500;
+      opacity: 0.8;
+      transition: opacity 0.3s, color 0.3s;
+    }
+
+    .nav-links a:hover {
+      opacity: 1;
+      color: var(--accent);
+    }
+
+    .theme-toggle {
+      margin-left: 24px;
+      cursor: pointer;
+      font-size: 1.2rem;
+      transition: transform 0.4s;
+    }
+
+    .theme-toggle:hover {
+      transform: rotate(20deg) scale(1.1);
+    }
+
+    /* SEÇÕES */
+    section {
+      max-width: 1100px;
+      margin: auto;
+      padding: 140px 24px 80px;
+      animation: fadeUp 0.9s ease forwards;
+    }
+
+    h1 {
+      font-size: 3rem;
+      margin-bottom: 20px;
+      background: linear-gradient(135deg, var(--accent), var(--accent-2));
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+    }
+
+    h2 {
+      font-size: 2rem;
+      margin: 50px 0 16px;
+    }
+
+    p {
+      line-height: 1.8;
+      opacity: 0.9;
+      margin-bottom: 16px;
+    }
+
+    /* CARTÕES */
+    .cards {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+      gap: 24px;
+      margin-top: 40px;
+    }
+
+    .card {
+      background: var(--bg-dark-2);
+      padding: 28px;
+      border-radius: 18px;
+      box-shadow: 0 20px 60px rgba(0,0,0,0.4);
+      transition: transform 0.4s, box-shadow 0.4s;
+    }
+
+    body.light .card {
+      background: var(--bg-light-2);
+      box-shadow: 0 20px 60px rgba(0,0,0,0.08);
+    }
+
+    .card:hover {
+      transform: translateY(-10px) scale(1.02);
+      box-shadow: 0 30px 80px rgba(124,124,255,0.25);
+    }
+
+    /* BOT PERSONALIDADE */
+    .bot-says {
+      margin-top: 50px;
+      padding: 24px;
+      border-left: 4px solid var(--accent);
+      background: linear-gradient(135deg, rgba(124,124,255,0.08), transparent);
+      border-radius: 12px;
+      font-style: italic;
+      animation: fadeUp 1.2s ease;
+    }
+
+    /* FOOTER */
+    footer {
+      padding: 40px 24px;
+      text-align: center;
+      opacity: 0.6;
+      font-size: 0.9rem;
+    }
+
+    /* PÁGINAS */
+    .page { display: none; }
+    .page.active { display: block; }
+
+    /* TRANSIÇÃO DE PÁGINA */
+    .transition {
+      position: fixed;
+      inset: 0;
+      background: radial-gradient(circle at center, var(--accent), #000);
+      z-index: 999;
+      opacity: 0;
+      pointer-events: none;
+      transition: opacity 0.6s;
+    }
+
+    .transition.active {
+      opacity: 1;
+    }
+  </style>
+</head>
+<body>
+
+<div class="transition" id="transition"></div>
+
+<header>
+  <div class="nav">
+    <div class="logo">Linithy</div>
+    <div class="nav-links">
+      <a href="#" onclick="go('home')">Início</a>
+      <a href="#" onclick="go('terms')">Termos</a>
+      <a href="#" onclick="go('privacy')">Privacidade</a>
+      <span class="theme-toggle" onclick="toggleTheme()">🌓</span>
+    </div>
+  </div>
+</header>
+
+<section id="home" class="page active">
+  <h1>Linithy</h1>
+  <p>Linithy é um bot.. ops, quero dizer uma linda garota do Discord criada para transformar servidores em ambientes vivos, inteligentes e divertidos. Ela nasceu da união entre automação poderosa, design moderno e uma personalidade única: nerd, fofa e um pouco desajeitada.</p>
+
+  <div class="cards">
+    <div class="card">
+      <h2>⚙️ Tecnologia</h2>
+      <p>Construído com foco em desempenho, segurança e estabilidade, Linithy opera com sistemas avançados de comandos, respostas contextuais e integração fluida com o Discord.</p>
+    </div>
+    <div class="card">
+      <h2>💜 Personalidade</h2>
+      <p>Linithy não é apenas código. Ela reage com frases tímidas, piadinhas nerds e comentários que dão vida às interações, criando uma experiência acolhedora.</p>
+    </div>
+    <div class="card">
+      <h2>✨ Experiência</h2>
+      <p>Desde animações suaves até respostas expressivas, tudo foi pensado para que cada interação pareça viva, moderna e envolvente.</p>
+    </div>
+  </div>
+
+  <div class="bot-says">"E-ei… você chegou até aqui! Eu… eu espero que goste do site. Eu demorei bastante pra organizar tudo, sabia?"</div>
+</section>
+
+<section id="terms" class="page">
+  <h1>Termos de Uso</h1>
+  <p>Ao utilizar a Linithy, você concorda com um conjunto de diretrizes criadas para garantir segurança, transparência e uma experiência justa para todos os usuários.</p>
+
+  <h2>Uso Responsável</h2>
+  <p>A Linithy deve ser utilizada de forma ética e dentro das diretrizes do Discord. É proibido explorar falhas, tentar manipular sistemas ou utilizar o bot para atividades ilegais.</p>
+
+  <h2>Disponibilidade</h2>
+  <p>Embora o objetivo seja manter a Linithy online e funcional continuamente, interrupções podem ocorrer para manutenção, melhorias ou situações fora de controle.</p>
+
+  <h2>Limitação de Responsabilidade</h2>
+  <p>A Linithy é fornecida "como está". Não nos responsabilizamos por perdas de dados, conflitos em servidores ou danos indiretos decorrentes do uso do bot.</p>
+
+  <div class="bot-says">"Ehm… essas regras são importantes. Eu fico meio nervosa quando alguém tenta quebrar coisas…"</div>
+</section>
+
+<section id="privacy" class="page">
+  <h1>Política de Privacidade</h1>
+  <p>A privacidade dos usuários é levada a sério. Esta política explica como as informações são coletadas, utilizadas e protegidas.</p>
+
+  <h2>Coleta de Dados</h2>
+  <p>A Linithy pode armazenar IDs de usuários, servidores e configurações necessárias para funcionamento adequado. Nenhum dado sensível pessoal é coletado.</p>
+
+  <h2>Uso das Informações</h2>
+  <p>Os dados são utilizados exclusivamente para fornecer funcionalidades do bot, personalizações e melhorias contínuas da experiência.</p>
+
+  <h2>Segurança</h2>
+  <p>Medidas técnicas e organizacionais são aplicadas para proteger as informações contra acessos não autorizados.</p>
+
+  <div class="bot-says">"P-privacidade é coisa séria! Eu guardo tudo direitinho… prometo!"</div>
+</section>
+
+<footer>
+  © 2026 Linithy • Todos os direitos reservados
+</footer>
+
+<script>
+  function toggleTheme() {
+    document.body.classList.toggle('light');
+  }
+
+  function go(page) {
+    const t = document.getElementById('transition');
+    t.classList.add('active');
+
+    setTimeout(() => {
+      document.querySelectorAll('.page').forEach(p => p.classList.remove('active'));
+      document.getElementById(page).classList.add('active');
+      window.scrollTo(0,0);
+    }, 400);
+
+    setTimeout(() => t.classList.remove('active'), 900);
+  }
+</script>
+
+</body>
+</html>
