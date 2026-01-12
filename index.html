@@ -215,6 +215,29 @@
     .transition.active {
       opacity: 1;
     }
+
+        .search-box {
+      margin: 35px 0 25px;
+      max-width: 420px;
+    }
+
+    .search-box input {
+      width: 100%;
+      padding: 15px 20px;
+      border-radius: 999px;
+      border: none;
+      outline: none;
+      font-family: 'Inter', sans-serif;
+      background: var(--bg-dark-2);
+      color: inherit;
+      box-shadow: 0 10px 30px rgba(0,0,0,0.35);
+    }
+
+    .command-text {
+      white-space: pre-line;
+      line-height: 1.8;
+      font-size: 0.95rem;
+    }
   </style>
 </head>
 
@@ -228,6 +251,7 @@
   Linithy
 </div>
     <div class="nav-links">
+      <a href="#" onclick="go('commands')">Comandos</a>
       <a href="#" onclick="go('terms')">Termos</a>
       <a href="#" onclick="go('privacy')">Privacidade</a>
 
@@ -264,6 +288,109 @@
   </div>
 
   <div class="bot-says">"E-ei… você chegou até aqui! Eu… eu espero que goste do site. Eu demorei bastante pra organizar tudo, sabia?"</div>
+</section>
+
+<section id="commands" class="page">
+  <h1>Comandos</h1>
+
+  <div class="search-box">
+    <input type="text" id="searchInput" placeholder="Pesquisar comando..." onkeyup="filterCommands()">
+  </div>
+
+  <div class="cards" id="commandsList">
+
+    <div class="card command-item"><div class="command-text">
+😺 <b>"Pizim!"</b>
+
+Veja se meu gatinho está por perto
+(Às vezes ele some, tá?! 😡)
+    </div></div>
+
+    <div class="card command-item"><div class="command-text">
+🎲 <b>".dado"</b>
+
+Rola um dado e te entrega um número aleatório de **1 a 12**!  
+(É divertido… e um pouquinho imprevisível 😵‍💫)
+    </div></div>
+
+    <div class="card command-item"><div class="command-text">
+🗒️ <b>"Lini"</b>
+
+Abre o painel de comandos.
+(Você ta usando esse comando agora né burrinho...)
+    </div></div>
+
+    <div class="card command-item"><div class="command-text">
+🕊️ <b>".confessar"</b>
+
+Faça uma **confissão anônima**.  
+Eu prometo guardar segredo… shhh 🤫💜
+    </div></div>
+
+    <div class="card command-item"><div class="command-text">
+🐄 <b>".tstgado"</b>
+
+Veja quantos **porcentos de gado** você é 😂  
+(N-não me culpa pelo resultado, ok?)
+    </div></div>
+
+    <div class="card command-item"><div class="command-text">
+💖 <b>".tstblz"</b>
+
+Descubra o quanto você é **linda(o)** em porcentagem ✨  
+(Eu aposto que é bastante…)
+    </div></div>
+
+    <div class="card command-item"><div class="command-text">
+🧮 <b>".cal &lt;num&gt; sinal &lt;num&gt;"</b>
+
+Faça contas de **soma, subtração, multiplicação ou divisão**.  
+S-sim… eu sou boa com números! 🤓
+    </div></div>
+
+    <div class="card command-item"><div class="command-text">
+🔍 <b>".av"</b>
+
+Deixe eu avaliar seu perfil
+(Vou ser sincera, então não me critica pela resposta 😔)
+    </div></div>
+
+    <div class="card command-item"><div class="command-text">
+💨 <b>".ban"</b>
+
+A ação de banimento é para administradores ☝️🤓
+(Nem tenta usar esse comando zé 🛑)
+    </div></div>
+
+    <div class="card command-item"><div class="command-text">
+🦵 <b>".chute"</b>
+
+Chuta o coleguinha mencionado
+(Obs: Eu não me responsabilizo se der treta, hein?! 😒)
+    </div></div>
+
+    <div class="card command-item"><div class="command-text">
+❤️ <b>".crush &lt;@alguém&gt;"</b>
+
+Veja quantos % você tem com seu/sua crush
+(Se der certo quero ser a madrinha hein? 😌)
+    </div></div>
+
+    <div class="card command-item"><div class="command-text">
+🗑️ <b>".limpar &lt;n° de msg&gt;"</b>
+
+Limpa quantas mensagens você quiser
+(Só vai até 100 😔)
+    </div></div>
+
+    <div class="card command-item"><div class="command-text">
+💋 <b>".bj &lt;@alguém&gt;"</b>
+
+Beija o usuário desejado
+(Como diria a Mr, "Rs" 😏)
+    </div></div>
+
+  </div>
 </section>
 
 <section id="terms" class="page">
