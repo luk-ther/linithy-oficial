@@ -446,6 +446,16 @@ Beija o usuário desejado
 
     setTimeout(() => t.classList.remove('active'), 600);
   }
+
+  function filterCommands() {
+    const input = document.getElementById('searchInput').value.toLowerCase();
+    const items = document.querySelectorAll('.command-item');
+
+    items.forEach(item => {
+      const text = item.innerText.toLowerCase();
+      item.style.display = text.includes(input) ? 'block' : 'none';
+    });
+  }
 </script>
 
 </body>
