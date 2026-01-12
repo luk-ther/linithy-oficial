@@ -391,6 +391,11 @@ Beija o usuário desejado
     </div></div>
 
   </div>
+
+<p id="noResults" style="display:none; opacity:0.6; margin-top:20px;">
+  😿 Nenhum comando encontrado
+</p>
+
 </section>
 
 <section id="terms" class="page">
@@ -450,13 +455,19 @@ Beija o usuário desejado
   function filterCommands() {
     const input = document.getElementById('searchInput').value.toLowerCase();
     const items = document.querySelectorAll('.command-item');
+    let found = false;
 
     items.forEach(item => {
-      const text = item.innerText.toLowerCase();
-      item.style.display = text.includes(input) ? 'block' : 'none';
+      const text = item.textContent.toLowerCase();
+      const match = text.includes(input);
+      item.style.display = match ? '' : 'none';
+      if (match) found = true;
     });
+
+    document.getElementById('noResults').style.display = found ? 'none' : 'block';
   }
 </script>
+
 
 </body>
 </html>
