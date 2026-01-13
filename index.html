@@ -238,6 +238,43 @@
       line-height: 1.8;
       font-size: 0.95rem;
     }
+
+    .stats {
+  display: flex;
+  gap: 40px;
+  margin: 40px 0;
+  flex-wrap: wrap;
+}
+
+.stat {
+  background: var(--bg-dark-2);
+  padding: 24px 30px;
+  border-radius: 16px;
+  text-align: center;
+  min-width: 160px;
+  box-shadow: 0 15px 40px rgba(0,0,0,0.35);
+}
+
+body.light .stat {
+  background: var(--bg-light-2);
+}
+
+.stat-number {
+  font-size: 2.2rem;
+  font-weight: 900;
+  background: linear-gradient(135deg, var(--accent), var(--accent-2));
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+}
+
+.stat-label {
+  display: block;
+  margin-top: 6px;
+  font-size: 0.95rem;
+  opacity: 0.7;
+}
+
+
   </style>
 </head>
 
@@ -271,6 +308,24 @@
 <section id="home" class="page active">
   <h1>Linithy</h1>
   <p>Linithy é um bot.. ops, quero dizer uma linda garota do Discord criada para transformar servidores em ambientes vivos, inteligentes e divertidos. Ela nasceu da união entre automação poderosa, design moderno e uma personalidade única: nerd, fofa e um pouco desajeitada.</p>
+
+<div class="stats">
+  <div class="stat">
+    <span class="stat-number" data-value="128">+20</span>
+    <span class="stat-label">Servidores</span>
+  </div>
+
+  <div class="stat">
+    <span class="stat-number" data-value="4210">+250</span>
+    <span class="stat-label">Usuários</span>
+  </div>
+
+  <div class="stat">
+    <span class="stat-number" data-value="98234">+2,4k</span>
+    <span class="stat-label">Comandos usados</span>
+  </div>
+</div>
+
 
   <div class="cards">
     <div class="card">
@@ -466,6 +521,27 @@ Beija o usuário desejado
 
     document.getElementById('noResults').style.display = found ? 'none' : 'block';
   }
+// Estatísticas animadas rápidas
+document.querySelectorAll('.stat-number').forEach(el => {
+  const finalValue = parseInt(el.getAttribute('data-value'));
+  let current = 0;
+
+  function increment() {
+    // Passo maior para acelerar a contagem
+    const step = Math.max(1, Math.floor(finalValue / 20));
+    current += step;
+    
+    if (current > finalValue) current = finalValue;
+    el.textContent = current.toLocaleString(); // formata com milhar
+    
+    if (current < finalValue) {
+      setTimeout(increment, 20); // atualiza a cada 20ms
+    }
+  }
+
+  increment();
+});
+
 </script>
 
 
